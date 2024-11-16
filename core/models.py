@@ -16,11 +16,12 @@ from django.db import models
 
 class Task(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField()  # 설명 필드 추가
-    due_date = models.DateField()  # 마감일 필드 추가
+    description = models.TextField()
+    due_date = models.DateField()
     assigned_by = models.ForeignKey('core.User', on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey('core.User', on_delete=models.CASCADE, related_name='tasks_received')
+    is_complete = models.BooleanField(default=False)  # 작업 완료 여부
     created_at = models.DateTimeField(auto_now_add=True)
-
     
 class TaskCompletion(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)

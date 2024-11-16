@@ -48,6 +48,16 @@
             </div>
         {% endif %}
     </div>
+    <!--오류 메시지 출력-->
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- 메인 콘텐츠 -->
     <div class="container text-center mt-5">
