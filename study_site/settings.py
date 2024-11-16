@@ -54,7 +54,7 @@ ROOT_URLCONF = 'study_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # 전역 템플릿 디렉토리 추가
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +67,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'study_site.wsgi.application'
 
 
 # Database
@@ -125,3 +124,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'core.User'
 
 LOGIN_URL = '/login/'  # 로그인 페이지 URL 설정
+
+LOGIN_REDIRECT_URL = '/student-dashboard/'  # 로그인 성공 후 학생 대시보드로 리디렉션
+# 로그아웃 후 리디렉션될 기본 URL 설정
+LOGOUT_REDIRECT_URL = '/'
+
+
+
+
+
+WSGI_APPLICATION = 'study_site.wsgi.application'

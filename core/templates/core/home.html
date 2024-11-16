@@ -3,10 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>StudyTurtle - Home</title>
 </head>
 <body>
-    <h1>Welcome to StudyTurtle</h1>
-    <p>This is the home page.</p>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">StudyTurtle</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; color: inherit;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 로그아웃 메시지 출력 -->
+    <div class="container mt-3">
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="container text-center mt-5">
+        <h1 class="display-4">Welcome to StudyTurtle</h1>
+        <p class="lead">A smart way to track and manage your study tasks.</p>
+        
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <a href="{% url 'core:dashboard' %}" class="btn btn-primary btn-lg mt-3">Go to Admin Dashboard</a>
+            {% else %}
+                <a href="{% url 'core:student_dashboard' %}" class="btn btn-primary btn-lg mt-3">Go to Student Dashboard</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'core:login' %}" class="btn btn-primary btn-lg mt-3">Login</a>
+            <a href="{% url 'core:register' %}" class="btn btn-secondary btn-lg mt-3">Sign Up</a>
+        {% endif %}
+    </div>
+
+    <!-- 소개 섹션 -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h3>Track Progress</h3>
+                <p>Monitor your study tasks and stay organized.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <h3>Collaborate</h3>
+                <p>Work with peers and share progress.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <h3>Achieve Goals</h3>
+                <p>Set targets and accomplish your academic goals.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
+    </footer>
 </body>
 </html>
