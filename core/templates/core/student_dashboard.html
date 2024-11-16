@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>학생 대시보드</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">학생 대시보드</h2>
+        <ul class="list-group mt-4">
+            {% for task in tasks %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ task.task.title }}</strong>: 완료 여부 - {{ task.completed }}
+                    </div>
+                    <div>
+                        {% if task.completed %}
+                            <span class="badge badge-success">완료됨</span>
+                        {% else %}
+                            <button class="btn btn-sm btn-outline-primary">완료 표시</button>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
