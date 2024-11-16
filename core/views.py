@@ -18,7 +18,17 @@ def is_admin(user):
 def admin_dashboard(request):
     if not request.user.is_staff:
         return redirect('/')
-    return render(request, 'core/dashboard.html')
+    
+    # 학생 계정 정보 가져오기
+    students = User.objects.filter(is_staff=False)  # 관리자가 아닌 사용자(학생들)만 조회
+    
+    # 학생이 없으면 디버그 메시지 출력
+    if not students.exists():
+        print("학생이 없습니다.")  # 디버깅
+    
+    # 관리자 대시보드 템플릿 렌더링
+    return render(request, 'core/dashboard.html', {'students': students})
+
 
 # 학생 대시보드 뷰
 @login_required
@@ -82,12 +92,14 @@ def register(request):
 @login_required
 def dashboard(request):
     if request.user.is_staff:
-        # 관리자: 모든 작업을 표시
+        # 관리자: 모든 작업을 표시하고 학생 목록도 함께 출력
         tasks = Task.objects.all()
-        return render(request, 'core/dashboard.html', {'tasks': tasks})
+        students = User.objects.filter(is_staff=False)  # 학생 계정만 조회
+        return render(request, 'core/dashboard.html', {'tasks': tasks, 'students': students})
     else:
         # 학생: student_dashboard로 리디렉션
         return redirect('core:student_dashboard')
+
 
 
 # 홈 뷰
