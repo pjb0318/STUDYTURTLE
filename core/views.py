@@ -102,3 +102,10 @@ def view_tasks(request):
     # 작업 데이터를 가져와 템플릿에 전달
     tasks = []  # 예: 작업 데이터를 가져오는 로직 추가
     return render(request, 'core/view_tasks.html', {'tasks': tasks})
+
+@login_required
+def after_login_view(request):
+    if request.user.is_staff:
+        return redirect('core:dashboard')  # 관리자 대시보드
+    else:
+        return redirect('core:student_dashboard')  # 학생 대시보드

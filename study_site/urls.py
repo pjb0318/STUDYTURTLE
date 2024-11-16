@@ -3,7 +3,7 @@ from core import views
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.urls import path, include
-
+from core.views import after_login_view
 
 
 urlpatterns = [
@@ -17,4 +17,5 @@ urlpatterns = [
     path('', views.home, name='home'),  # 홈 페이지 (마지막에 배치)
     path('admin/', admin.site.urls),  # Django 관리자 페이지
     path('', include('core.urls')),  # core 앱의 URL 포함
+    path('after-login/', after_login_view, name='after_login'),
 ]
