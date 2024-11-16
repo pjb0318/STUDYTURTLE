@@ -5,14 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>로그인</title>
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #f5f5f5; /* 부드러운 배경색 */
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            padding-left: 15px; /* home.html과 동일한 위치 조정 */
+        }
+        .navbar-nav .nav-item {
+            margin-left: 15px;
+        }
+        .form-container {
+            border: none;
+            border-radius: 12px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa); /* 부드러운 그라데이션 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 */
+            transition: transform 0.3s ease-in-out;
+        }
+        .form-container:hover {
+            transform: scale(1.02); /* 살짝 확대 효과 */
+        }
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .form-control {
+            height: 50px; /* 입력창 높이 */
+            border-radius: 8px; /* 둥근 모서리 */
+            font-size: 1rem;
+        }
+        .btn-primary {
+            border-radius: 25px; /* 버튼 둥글게 */
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 7rem; /* 세로 길이를 늘리기 위해 위쪽 여백 증가 */
+            margin-bottom: 5rem; /* 아래쪽 여백 추가 */
+        }
+        footer {
+            margin-top: 3rem;
+            background-color: #343a40;
+        }
+    </style>
 </head>
 <body>
     <!-- 네비게이션 바 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid"> <!-- container-fluid로 home.html과 동일하게 -->
             <a class="navbar-brand" href="{% url 'home' %}">StudyTurtle</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'register' %}">회원가입</a>
                     </li>
@@ -25,39 +79,48 @@
     </nav>
 
     <!-- 로그인 폼 -->
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <h3 class="text-center mb-4">로그인</h3>
-                
-                <!-- 에러 메시지 출력 -->
-                {% if messages %}
-                    <div>
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} mt-2" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                
-                <!-- 로그인 폼 -->
-                <form method="post" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary btn-block">로그인</button>
-                </form>
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h3 class="form-title text-center mb-4">로그인</h3>
+                    
+                    <!-- 에러 메시지 출력 -->
+                    {% if messages %}
+                        <div>
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- 로그인 폼 -->
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">아이디</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="아이디를 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-4">로그인</button>
+                    </form>
 
-                <!-- 회원가입 링크 -->
-                <p class="mt-3 text-center">
-                    계정이 없으신가요? <a href="{% url 'register' %}">회원가입</a>
-                </p>
+                    <!-- 회원가입 링크 -->
+                    <p class="mt-3 text-center">
+                        계정이 없으신가요? <a href="{% url 'register' %}">회원가입</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- 푸터 -->
-    <footer class="bg-light text-center py-3 mt-5">
+    <footer class="bg-dark text-white text-center py-3 mt-5">
         <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
     </footer>
 </body>

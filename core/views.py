@@ -17,7 +17,6 @@ def is_admin(user):
 @login_required
 def admin_dashboard(request):
     if not request.user.is_staff:
-        messages.error(request, "Access denied. Only administrators can access this page.")
         return redirect('/')
     return render(request, 'core/dashboard.html')
 
@@ -69,9 +68,8 @@ def register(request):
             user.email = form.cleaned_data['email']
             user.is_staff = False
             user.save()
-            login(request, user)
             messages.success(request, f'회원가입이 완료되었습니다. {user.username}님 환영합니다!')
-            return redirect('core:student_dashboard')
+            return redirect('login')  # 로그인 페이지로 리디렉션
         else:
             for error in form.errors.values():
                 messages.error(request, error)
@@ -79,18 +77,21 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'registration/forms/register.html', {'form': form})
 
+
 # 대시보드 뷰
 @login_required
 def dashboard(request):
     if request.user.is_staff:
-        return render(request, 'core/dashboard.html')
+        # 관리자: 모든 작업을 표시
+        tasks = Task.objects.all()
+        return render(request, 'core/dashboard.html', {'tasks': tasks})
     else:
+        # 학생: student_dashboard로 리디렉션
         return redirect('core:student_dashboard')
+
 
 # 홈 뷰
 def home(request):
-    if 'logout' in request.GET:
-        messages.success(request, "성공적으로 로그아웃되었습니다!")
     return render(request, 'core/home.html')
 
 # 작업 보기 뷰

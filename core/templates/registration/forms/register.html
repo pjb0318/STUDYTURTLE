@@ -5,14 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>회원가입</title>
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #f5f5f5; /* 배경색 */
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            padding-left: 15px; /* home.html과 동일한 위치 조정 */
+        }
+        .form-container {
+            max-width: 600px; /* 컨테이너 너비 확장 */
+            margin: 0 auto; /* 중앙 정렬 */
+            border: none;
+            border-radius: 15px;
+            padding: 40px;
+            background: #ffffff; /* 배경색 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* 그림자 */
+            transition: transform 0.3s ease-in-out;
+        }
+        .form-container:hover {
+            transform: scale(1.02); /* 호버 시 살짝 확대 */
+        }
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 1.8rem; /* 필드 간격 확대 */
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block; /* 위로 올리기 위해 블록 요소 */
+        }
+        .form-control {
+            height: 55px; /* 입력창 높이 확대 */
+            border-radius: 10px; /* 둥근 모서리 */
+            font-size: 1.1rem;
+            width: 100%; /* 입력창 너비 */
+            padding-left: 20px; /* 내부 좌측 여백 */
+            padding-right: 20px; /* 내부 우측 여백 */
+        }
+        .form-control::placeholder {
+            color: #6c757d; /* 안내 텍스트 색상 */
+        }
+        .btn-primary {
+            border-radius: 30px; /* 버튼 둥글게 */
+            font-size: 1.2rem; /* 버튼 크기 확대 */
+            font-weight: bold;
+            background-color: #007bff;
+            height: 55px;
+        }
+        footer {
+            margin-top: 3rem;
+            background-color: #343a40;
+        }
+    </style>
 </head>
 <body>
     <!-- 네비게이션 바 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid"> <!-- container-fluid로 home.html과 일치 -->
             <a class="navbar-brand" href="{% url 'home' %}">StudyTurtle</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">로그인</a>
                     </li>
@@ -21,93 +83,58 @@
         </div>
     </nav>
 
-    <!-- 회원가입 컨테이너 -->
+    <!-- 회원가입 폼 -->
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h3 class="text-center mb-4">회원가입</h3>
+        <div class="form-container">
+            <h3 class="form-title">회원가입</h3>
+            
+            <!-- 메시지 출력 -->
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- 회원가입 폼 -->
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
                 
-                <!-- 메시지 출력 -->
-                {% if messages %}
-                    <div>
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} mt-2" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <!-- 사용자 이름 -->
+                <div class="form-group">
+                    <label for="id_username">아이디</label>
+                    <input type="text" id="id_username" name="username" class="form-control" placeholder="아이디를 입력하세요" required>
+                </div>
 
-                <!-- 폼 에러 표시 -->
-                {% if form.non_field_errors %}
-                    <div class="alert alert-danger" role="alert">
-                        {% for error in form.non_field_errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                
-                <!-- 회원가입 폼 -->
-                <form method="post" action="{% url 'register' %}">
-                    {% csrf_token %}
-                    
-                    <!-- 사용자 이름 -->
-                    <div class="form-group">
-                        <label for="id_username">사용자 이름:</label>
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                            <div class="text-danger mt-1">
-                                {% for error in form.username.errors %}
-                                    <small>{{ error }}</small>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        <small class="form-text text-muted mt-1">필수 항목. 150자 이하. 문자, 숫자, @/./+/-/_ 만 사용 가능합니다.</small>
-                    </div>
+                <!-- 이메일 주소 -->
+                <div class="form-group">
+                    <label for="id_email">이메일</label>
+                    <input type="email" id="id_email" name="email" class="form-control" placeholder="이메일 주소를 입력하세요" required>
+                </div>
 
-                    <!-- 이메일 주소 -->
-                    <div class="form-group">
-                        <label for="id_email">이메일 주소:</label>
-                        {{ form.email }}
-                        {% if form.email.errors %}
-                            <div class="text-danger mt-1">
-                                {% for error in form.email.errors %}
-                                    <small>{{ error }}</small>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
+                <!-- 비밀번호 -->
+                <div class="form-group">
+                    <label for="id_password1">비밀번호</label>
+                    <input type="password" id="id_password1" name="password1" class="form-control" placeholder="비밀번호를 입력하세요" required>
+                </div>
 
-                    <!-- 비밀번호 -->
-                    <div class="form-group">
-                        <label for="id_password1">비밀번호:</label>
-                        {{ form.password1 }}
-                        {% if form.password1.errors %}
-                            <div class="text-danger mt-1">
-                                {% for error in form.password1.errors %}
-                                    <small>{{ error }}</small>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
+                <!-- 비밀번호 확인 -->
+                <div class="form-group">
+                    <label for="id_password2">비밀번호 확인</label>
+                    <input type="password" id="id_password2" name="password2" class="form-control" placeholder="비밀번호를 다시 입력하세요" required>
+                </div>
 
-                    <!-- 비밀번호 확인 -->
-                    <div class="form-group">
-                        <label for="id_password2">비밀번호 확인:</label>
-                        {{ form.password2 }}
-                        {% if form.password2.errors %}
-                            <div class="text-danger mt-1">
-                                {% for error in form.password2.errors %}
-                                    <small>{{ error }}</small>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block">회원가입</button>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary btn-block mt-4">회원가입</button>
+            </form>
         </div>
     </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
+    </footer>
 </body>
 </html>

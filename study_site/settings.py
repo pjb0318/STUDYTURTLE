@@ -134,3 +134,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 WSGI_APPLICATION = 'study_site.wsgi.application'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
