@@ -11,7 +11,10 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description', 'due_date', 'assigned_by']  # Task 모델의 필드
         widgets = {
-            'due_date': forms.DateInput(attrs={'type': 'date'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'due_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'assigned_by': forms.Select(attrs={'class': 'form-control'}),
         }
 
 # 사용자 등록 폼

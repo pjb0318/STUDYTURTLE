@@ -90,7 +90,7 @@ def dashboard(request):
 # 홈 뷰
 def home(request):
     if 'logout' in request.GET:
-        messages.success(request, "성공적으로 로그아웃되었습니다.")
+        messages.success(request, "성공적으로 로그아웃되었습니다!")
     return render(request, 'core/home.html')
 
 # 작업 보기 뷰

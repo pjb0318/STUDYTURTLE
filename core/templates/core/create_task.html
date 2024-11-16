@@ -2,15 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Create Task - StudyTurtle</title>
 </head>
 <body>
-    <h1>Create a New Task</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Task</button>
-    </form>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'core:dashboard' %}">StudyTurtle</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'core:logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-light">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Create a New Task</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- 작업 생성 폼 -->
+                <form method="post" class="bg-light p-4 rounded shadow-sm">
+                    {% csrf_token %}
+
+                    <!-- 제목 입력 -->
+                    <div class="form-group">
+                        <label for="id_title" class="font-weight-bold">Title</label>
+                        {{ form.title }}
+                    </div>
+
+                    <!-- 설명 입력 -->
+                    <div class="form-group">
+                        <label for="id_description" class="font-weight-bold">Description</label>
+                        {{ form.description }}
+                    </div>
+
+                    <!-- 마감 날짜 입력 -->
+                    <div class="form-group">
+                        <label for="id_due_date" class="font-weight-bold">Due Date</label>
+                        {{ form.due_date }}
+                    </div>
+
+                    <!-- 담당자 선택 -->
+                    <div class="form-group">
+                        <label for="id_assigned_to" class="font-weight-bold">Assigned to</label>
+                        {{ form.assigned_to }}
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Create Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-d

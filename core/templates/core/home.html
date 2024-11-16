@@ -15,12 +15,12 @@
                 <ul class="navbar-nav ml-auto align-items-center">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                            <a class="nav-link" href="{% url 'dashboard' %}">대시보드</a>
                         </li>
                         <li class="nav-item">
                             <form method="post" action="{% url 'logout' %}" style="display: inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">Logout</button>
+                                <a href="#" onclick="this.closest('form').submit();" class="nav-link">로그아웃</a>
                             </form>
                         </li>
                     {% else %}
@@ -61,14 +61,14 @@
 
     <!-- 메인 콘텐츠 -->
     <div class="container text-center mt-5">
-        <h1 class="display-4">Welcome to StudyTurtle</h1>
-        <p class="lead">A smart way to track and manage your study tasks.</p>
+        <h1 class="display-4">StudyTurtle에 오신걸 환영합니다!</h1>
+        <p class="lead">스터디의 학습 진도를 도와줄 최고의 선택</p>
         
         {% if user.is_authenticated %}
             {% if user.is_staff %}
-                <a href="{% url 'core:dashboard' %}" class="btn btn-primary btn-lg mt-3">Go to Admin Dashboard</a>
+                <a href="{% url 'core:dashboard' %}" class="btn btn-primary btn-lg mt-3">관리자 대시보드</a>
             {% else %}
-                <a href="{% url 'core:student_dashboard' %}" class="btn btn-primary btn-lg mt-3">Go to Student Dashboard</a>
+                <a href="{% url 'core:student_dashboard' %}" class="btn btn-primary btn-lg mt-3">학생 대시보드</a>
             {% endif %}
         {% else %}
             <a href="{% url 'core:login' %}" class="btn btn-primary btn-lg mt-3">Login</a>
@@ -81,15 +81,15 @@
         <div class="row">
             <div class="col-md-4 text-center">
                 <h3>Track Progress</h3>
-                <p>Monitor your study tasks and stay organized.</p>
+                <p>선생님은 학생의 학습 과제를 관리하고 진행 상황을 모니터링하세요</p>
             </div>
             <div class="col-md-4 text-center">
-                <h3>Collaborate</h3>
-                <p>Work with peers and share progress.</p>
+                <h3>Collaborate & Feedback</h3>
+                <p>선생님과 학생 간의 소통을 통해서 학습을 효율적으로 개선하세요</p>
             </div>
             <div class="col-md-4 text-center">
-                <h3>Achieve Goals</h3>
-                <p>Set targets and accomplish your academic goals.</p>
+                <h3>Achieve Study Goals</h3>
+                <p>스터디 목표를 설정하고 이를 달성할 수 있도록 지원합니다</p>
             </div>
         </div>
     </div>
