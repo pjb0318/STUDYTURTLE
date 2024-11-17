@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 User = get_user_model()  # 사용자 정의 모델 가져오기
 
+
 # Task 모델 폼
 class TaskForm(forms.ModelForm):
     class Meta:
@@ -17,11 +18,25 @@ class TaskForm(forms.ModelForm):
             'assigned_by': forms.Select(attrs={'class': 'form-control'}),
         }
 
+
 # 사용자 등록 폼
 class UserRegistrationForm(UserCreationForm):
+    name = forms.CharField(
+        label="이름",
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+    student_id = forms.CharField(
+        label="학번",
+        max_length=8,  # 최대 길이 제한
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'name', 'student_id', 'password1', 'password2']
         labels = {
             'username': '사용자 이름',
             'email': '이메일 주소',
@@ -35,8 +50,20 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError("이미 등록된 이메일입니다.")
         return email
 
+    def clean_student_id(self):
+        student_id = self.cleaned_data.get('student_id')
+        if len(student_id) != 8:
+            raise forms.ValidationError("학번은 8자리여야 합니다.")
+        if not student_id.isdigit():
+            raise forms.ValidationError("학번은 숫자로만 이루어져야 합니다.")
+        if User.objects.filter(student_id=student_id).exists():
+            raise forms.ValidationError("이미 등록된 학번입니다.")
+        return student_id
+
     def save(self, commit=True):
         user = super().save(commit=False)
+        user.name = self.cleaned_data['name']
+        user.student_id = self.cleaned_data['student_id']
         user.role = 'student'  # 기본적으로 학생으로 설정
         if commit:
             user.save()

@@ -10,10 +10,14 @@
     <!-- 네비게이션 바 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'dashboard' %}">StudyTurtle 관리자</a>
-            <div class="collapse navbar-collapse">
+            <a class="navbar-brand" href="#">StudyTurtle 관리자</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
+                        <!-- 로그아웃 버튼 -->
                         <form method="post" action="{% url 'logout' %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-light">로그아웃</button>
@@ -24,34 +28,62 @@
         </div>
     </nav>
 
-    <!-- 페이지 콘텐츠 -->
+    <!-- 메인 콘텐츠 -->
     <div class="container mt-5">
-        <h1 class="mb-4">안녕하세요, {{ user.username }}님!</h1>
-        <p>관리자로서 작업을 추가하고 진행 상황을 관리하세요.</p>
+        <h1 class="mb-4">관리자 대시보드</h1>
 
-        <!-- 작업 관리 -->
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">작업 관리</div>
-                    <div class="card-body">
-                        <h5 class="card-title">작업 추가</h5>
-                        <p>새로운 작업을 추가합니다.</p>
-                        <a href="{% url 'create_task' %}" class="btn btn-light">작업 추가</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">진행 상황</div>
-                    <div class="card-body">
-                        <h5 class="card-title">작업 진행 상황 보기</h5>
-                        <p>현재 진행 중인 작업을 확인하세요.</p>
-                        <a href="{% url 'dashboard' %}" class="btn btn-light">진행 상황 보기</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- 학생 및 선생님 목록 -->
+        <h2>학생 목록</h2>
+        <ul class="list-group mb-4">
+            {% for student in students %}
+            <li class="list-group-item">{{ student.username }} ({{ student.email }})</li>
+            {% empty %}
+            <li class="list-group-item">학생이 없습니다.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>선생님 목록</h2>
+        <ul class="list-group mb-4">
+            {% for teacher in teachers %}
+            <li class="list-group-item">{{ teacher.username }} ({{ teacher.email }})</li>
+            {% empty %}
+            <li class="list-group-item">선생님이 없습니다.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- 대기 중인 요청 -->
+        <h2>선생님 요청 관리</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>사용자 이름</th>
+                    <th>이메일</th>
+                    <th>요청 상태</th>
+                    <th>승인/거부</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in pending_requests %}
+                <tr>
+                    <td>{{ request.user.username }}</td>
+                    <td>{{ request.user.email }}</td>
+                    <td>{% if request.is_approved %}승인됨{% else %}대기 중{% endif %}</td>
+                    <td>
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="request_id" value="{{ request.id }}">
+                            <button type="submit" name="action" value="approve" class="btn btn-success btn-sm">승인</button>
+                            <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">거부</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">대기 중인 요청이 없습니다.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

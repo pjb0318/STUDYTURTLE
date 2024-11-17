@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>선생님 요청</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>선생님 역할 요청</h1>
+        
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% elif success %}
+            <div class="alert alert-success">{{ success }}</div>
+        {% else %}
+            <p>선생님 역할을 요청하시겠습니까?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">요청하기</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

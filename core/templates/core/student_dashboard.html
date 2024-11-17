@@ -7,26 +7,32 @@
     <title>학생 대시보드</title>
 </head>
 <body>
-    <!-- 네비게이션 바 -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">StudyTurtle 학생</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <form method="post" action="{% url 'core:logout' %}" style="display: inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-light">로그아웃</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+ <!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">StudyTurtle 학생</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <!-- 선생님 역할 요청 링크 -->
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning text-dark mr-2" href="{% url 'core:request_teacher' %}" role="button">선생님 요청</a>
+                </li>
+                <!-- 로그아웃 버튼 -->
+                <li class="nav-item">
+                    <form method="post" action="{% url 'core:logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-light">로그아웃</button>
+                    </form>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <!-- 페이지 콘텐츠 -->
     <div class="container mt-5">
-        <h1 class="mb-4">안녕하세요, {{ user.username }}님!</h1>
+        <h1 class="mb-4">안녕하세요, {{ user.name }}님!</h1>
         <p>여기에서 자신의 작업을 확인하고 완료를 표시하세요.</p>
 
         <!-- 작업 목록 -->
