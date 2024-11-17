@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from .models import User, Task, TaskCompletion
+from django.shortcuts import render  
 
 
 class ResetPasswordForm(forms.Form):
