@@ -1,0 +1,49 @@
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 2rem;
+}
+
+.container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.container p {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-body ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.card-body ul li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-sm {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

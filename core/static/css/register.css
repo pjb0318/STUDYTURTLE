@@ -1,0 +1,63 @@
+body {
+    padding-top: 70px;
+    background-color: #f5f5f5; /* 배경색 */
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    padding-left: 15px; /* home.html과 동일한 위치 조정 */
+}
+
+.form-container {
+    max-width: 500px; /* 컨테이너 너비 조정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    border: none;
+    border-radius: 15px;
+    padding: 30px;
+    background: #ffffff; /* 배경색 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* 그림자 */
+    transition: transform 0.3s ease-in-out;
+}
+
+.form-container:hover {
+    transform: scale(1.02); /* 호버 시 살짝 확대 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강화 */
+}
+
+.form-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block; /* 위로 올리기 위해 블록 요소 */
+}
+
+.form-control {
+    height: 45px; /* 입력창 높이 축소 */
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 1rem;
+    width: 100%; /* 입력창 너비 */
+    padding: 10px; /* 내부 여백 */
+}
+
+.btn-primary {
+    border-radius: 25px; /* 버튼 둥글게 */
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #007bff;
+    height: 50px;
+}
+
+footer {
+    margin-top: 3rem;
+    background-color: #343a40;
+}

@@ -1,0 +1,38 @@
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 2rem;
+}
+
+.container {
+    max-width: 600px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 20px;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.alert {
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+}

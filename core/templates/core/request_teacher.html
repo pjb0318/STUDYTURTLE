@@ -1,26 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/request_teacher_role.css' %}">
     <title>선생님 요청</title>
 </head>
 <body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'core:home' %}">StudyTurtle</a>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
     <div class="container mt-5">
-        <h1>선생님 역할 요청</h1>
-        
-        {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-        {% elif success %}
-            <div class="alert alert-success">{{ success }}</div>
-        {% else %}
-            <p>선생님 역할을 요청하시겠습니까?</p>
-            <form method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">요청하기</button>
-            </form>
-        {% endif %}
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">선생님 역할 요청</h1>
+                
+                {% if error %}
+                    <div class="alert alert-danger text-center">{{ error }}</div>
+                {% elif success %}
+                    <div class="alert alert-success text-center">{{ success }}</div>
+                {% else %}
+                    <p class="text-center">선생님 역할을 요청하시겠습니까?</p>
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">요청하기</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </body>
 </html>
