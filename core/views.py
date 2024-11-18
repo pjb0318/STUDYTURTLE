@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, user_passes_test
+# Django 기본 라이브러리
+from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.views import LoginView
 from django.contrib.auth import get_user_model
+
+# 프로젝트 및 앱 내부 모듈
 from .models import Task
 from .forms import TaskForm, UserRegistrationForm
-from django.contrib.auth.views import LoginView
-from django.shortcuts import resolve_url
 from core.models import User, TeacherRequest
-
 
 
 User = get_user_model()
@@ -153,6 +154,9 @@ def view_tasks(request):
 
 @login_required
 def request_teacher_role(request):
+      # role이 'student'가 아닌 경우 접근 제한
+    if request.user.role != 'student':
+        return redirect('/')  # 403 에러 반환
     # 이미 요청한 경우
     if TeacherRequest.objects.filter(user=request.user).exists():
         return render(request, 'core/request_teacher.html', {

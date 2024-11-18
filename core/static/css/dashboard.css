@@ -1,3 +1,4 @@
+/* 학생 목록 스타일 */
 .student-list {
     float: right;
     padding: 20px;
@@ -5,17 +6,19 @@
     background-color: #f8f9fa;
     border: 1px solid #ddd;
     margin-left: 20px;
-    max-height: 300px; /* 최대 높이 설정 */
-    overflow-y: auto; /* 세로 방향 스크롤 추가 */
+    max-height: 300px;
+    overflow-y: auto; /* 세로 스크롤 */
 }
 
 .student-list h3 {
     text-align: center;
+    margin-bottom: 10px; /* 제목과 목록 간 간격 추가 */
 }
 
 .student-list ul {
-    list-style-type: none;
+    list-style: none; /* 기본 목록 스타일 제거 */
     padding: 0;
+    margin: 0; /* 불필요한 여백 제거 */
 }
 
 .student-list li {
@@ -23,43 +26,13 @@
     border-bottom: 1px solid #ddd;
 }
 
-.navbar {
-    margin-bottom: 0; /* 네비게이션 바 아래 간격 제거 */
-    font-weight: bold;
-    background-color: #343a40;
-    border-bottom: 2px solid #007bff;
+.student-list li:last-child {
+    border-bottom: none; /* 마지막 항목의 테두리 제거 */
 }
 
-.navbar-brand {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #fff !important;
+.dashboard-page .content {
+    justify-content: flex-start; /* 수직 방향의 시작 부분으로 정렬 */
+    align-items: flex-start; /* 수평 방향의 시작 부분으로 정렬 */
+    margin-top: 0; 
 }
 
-.navbar-toggler {
-    border: none;
-}
-
-.navbar-toggler-icon {
-    background-color: #fff;
-}
-
-.nav-link {
-    font-weight: bold;
-    color: #fff !important;
-    transition: color 0.2s ease-in-out;
-}
-
-.nav-link:hover {
-    color: #007bff !important;
-}
-
-.content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: left;
-    margin-top: 3rem; /* 추가 여백 */
-}

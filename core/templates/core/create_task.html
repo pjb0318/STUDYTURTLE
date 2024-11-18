@@ -6,22 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/create_task.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
     <title>Create Task - StudyTurtle</title>
 </head>
 <body>
     <!-- 네비게이션 바 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'core:dashboard' %}">StudyTurtle</a>
+            <a class="navbar-brand" href="{% url 'core:dashboard' %}">STUDYTURTLE</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'core:dashboard' %}">Dashboard</a>
+                        <a class="nav-link" href="{% url 'core:dashboard' %}">대시보드</a>
                     </li>
                     <li class="nav-item">
                         <form method="post" action="{% url 'core:logout' %}" style="display: inline;">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-light">Logout</button>
+                            <button type="submit" class="btn btn-light">로그아웃</button>
                         </form>
                     </li>
                 </ul>
@@ -31,7 +32,7 @@
 
     <!-- 메인 콘텐츠 -->
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Create a New Task</h1>
+        <h1 class="text-center mb-4">새 과제 만들기</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <!-- 작업 생성 폼 -->
@@ -68,6 +69,11 @@
             </div>
         </div>
     </div>
+
+      <!-- 푸터 -->
+      <footer>
+        <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

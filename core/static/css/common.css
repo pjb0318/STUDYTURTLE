@@ -1,0 +1,99 @@
+/*똑같은 코드 여러개 해둬서 일치 시키려니 화병 나서 합치도록 하겠음. 유지보수하기 좋겟죠?*/
+
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Krona+One&display=swap');
+/*네비게이션 바*/
+.navbar {
+    margin-bottom: 0; 
+    font-weight: bold;
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    font-family: "Krona One", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+    color: #fff !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.nav-link {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff !important;
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #007bff !important;
+}
+
+
+
+.krona-one-regular {
+    font-family: "Krona One", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.gothic-a1-regular {
+    font-family: "Gothic A1", serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1; 
+  }
+
+  .gothic-a1-bold {
+    font-family: "Gothic A1", serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    margin-top: 2rem; /* 추가 여백 */
+    font-family: "Gothic A1", serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.6; /* 가독성을 위해 줄 간격 설정 */
+}
+
+
+footer {
+    font-family: "Krona One", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.8rem;
+
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* 다른 요소 위로 올리기 */
+}
+
+

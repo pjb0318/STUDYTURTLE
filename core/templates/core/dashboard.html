@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+ 
     <title>선생님 대시보드</title>
 </head>
-<body>
+<body class="dasbaord-page">
  <!-- 네비게이션 바 -->
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand font-weight-bold" href="{% url 'core:home' %}">StudyTurtle</a>
+        <a class="navbar-brand" href="{% url 'core:home' %}">STUDYTURTLE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,7 +23,7 @@
                 <li class="nav-item">
                     <form method="post" action="{% url 'core:logout' %}" style="display: inline;">
                         {% csrf_token %}
-                        <a href="#" onclick="this.closest('form').submit();" class="nav-link font-weight-bold">로그아웃</a>
+                        <a href="#" onclick="this.closest('form').submit();" class="nav-link">로그아웃</a>
                     </form>
                 </li>
             </ul>
@@ -92,6 +94,11 @@
         </div>
 
      </div>
+
+       <!-- 푸터 -->
+    <footer>
+        <p>2024 StudyTurtle. All rights reserved.</p>
+    </footer>
    
 </body>
 </html>

@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
     <title>StudyTurtle - Home</title>
 </head>
-<body>
+<body class="home-page">
     <!-- 네비게이션 바 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">StudyTurtle</a>
+            <a class="navbar-brand" href="#">STUDYTURTLE</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,11 +23,11 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             {% if user.role == 'admin' %}
-                                <a class="nav-link" href="{% url 'core:admin_dashboard' %}">관리자 대시보드</a>
+                                <a class="nav-link" href="{% url 'core:admin_dashboard' %}">관리자</a>
                             {% elif user.role == 'teacher' %}
-                                <a class="nav-link" href="{% url 'core:dashboard' %}">선생님 대시보드</a>
+                                <a class="nav-link" href="{% url 'core:dashboard' %}">선생님</a>
                             {% else %}
-                                <a class="nav-link" href="{% url 'core:student_dashboard' %}">학생 대시보드</a>
+                                <a class="nav-link" href="{% url 'core:student_dashboard' %}">학생</a>
                             {% endif %}
                         </li>
                         <li class="nav-item">
@@ -49,32 +51,60 @@
 
     <!-- 메인 콘텐츠 -->
     <div class="content">
-        <div class="container section-spacing">
-            <h1 class="display-4">StudyTurtle에 오신걸 환영합니다!</h1>
-            <p class="lead">스터디의 학습 진도를 도와줄 최고의 선택</p>
-            <img src="{% static 'images/studyturtle_logo.png' %}" alt="StudyTurtle Logo" class="logo" style="max-width: 250px;">
+        <div class="container section-spacing" id="intro-animation">
+            <h1 class="display-4 fade-in scroll-item" id="scroll-title">
+                <span class="krona-one-regular">STUDYTURTLE</span> 에 오신걸 환영합니다!
+            </h1>
+            <p class="lead fade-in scroll-item" id="scroll-text">스터디 학습의 진행을 도와줄 최고의 선택</p>
+            <img src="{% static 'images/turtle.svg' %}" alt="StudyTurtle Logo" class="logo fade-in scroll-item" id="scroll-logo" style="width: 250px; height: auto;">
         </div>
     </div>
 
-    <!-- 소개 섹션 -->
+<!-- 프로젝트 소개 섹션 -->
+<div class="container-fluid section-spacing" id="project-intro">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="krona-one-regular text-center">STUDYTURTLE VISION</h2>
+            <h1 class="gothic-a1-bold text-center">걸음은 느릴지라도, 그 자취는 위대하리라</h1>
+            <p class="gothic-a1-regular text-center">
+                <span class="krona-one-regular">STUDYTURTLE</span> 은 학습의 여정을 한 걸음씩 내딛는 모든 사람을 위해서 설계되었습니다.
+                우리는 작은 시작이 결국 큰 변화를 만들어낸다는 믿음 아래, 학생에게 꾸준한 성장을 돕는 플랫폼을 제공합니다. 
+                학생은 자신만의 학습 방법을 찾고, 교사는 학생의 성장을 이끄는 중요한 동반자가 됩니다.
+                우리의 목표는 학생의 학습을 관리하는 데 그치지 않습니다. 
+                우리는 학생이 자신감을 가지고, 한 걸음씩 성장할 수 있는 환경을 만들어
+                그들의 작은 노력이 결국 위대한 성과로 이어지도록 합니다. 우리는 그들이 걸어갈 길을 함께할 것입니다.<br>
+                <span class="krona-one-regular">STUDYTURTLE</span>은 그 자취가 세상에 큰 변화를 일으킬 수 있기를 바랍니다.
+            </p>
+        </div>
+        <div id="footprints" class="fade-in">
+            <img src="{% static 'images/footprint_left.svg' %}" class="footprint" id="footprint-1" style="transition: opacity 0.5s ease;" />
+            <img src="{% static 'images/footprint_right.svg' %}" class="footprint" id="footprint-2" style="transition: opacity 0.5s ease;" />
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!-- 3요소 섹션 -->
     <div class="container-fluid section-spacing">
         <div class="row">
             <div class="col-md-3">
                 <div class="circle-card">
-                    <h3>Track Progress</h3>
-                    <p>학생의 학습과제를<br>관리하고 진행 상황을<br>모니터링하세요</p>
+                    <h3 class="krona-one-regular">Track<br>Progress</h3>
+                    <p class="gothic-a1-regular">학생의 학습과제를<br>관리하고 진행 상황을<br>모니터링하세요</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="circle-card">
-                    <h3>Collaborate<br>& Feedback</h3>
-                    <p>선생님과 학생 간의 소통을<br>통해서 학습을 효율적으로<br>개선하세요</p>
+                    <h3 class="krona-one-regular">Collaborate<br>& Feedback</h3>
+                    <p class="gothic-a1-regular">선생님과 학생 간의 소통을<br>통해서 학습을 효율적으로<br>개선하세요</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="circle-card">
-                    <h3>Achieve<br>Study Goals</h3>
-                    <p>스터디 목표를 설정하고<br>이를 달성할 수 있도록<br>지원합니다</p>
+                    <h3 class="krona-one-regular">Achieve<br>Study Goals</h3>
+                    <p class="gothic-a1-regular">스터디 목표를 설정하고<br>이를 달성할 수 있도록<br>지원합니다</p>
                 </div>
             </div>
         </div>
@@ -84,6 +114,7 @@
     <footer>
         <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
     </footer>
+
     <script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>

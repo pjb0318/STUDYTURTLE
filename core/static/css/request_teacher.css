@@ -6,11 +6,11 @@ body {
 
 .navbar {
     margin-bottom: 2rem;
-    font-weight: bold;
 }
 
 .container {
     max-width: 600px;
+    margin-top: 7rem;
 }
 
 .card {
@@ -36,4 +36,14 @@ body {
     font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
+    background-color: #007bff; /* 기본 파란색 */
+    color: #ffffff; /* 흰색 텍스트 */
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 부드러운 애니메이션 */
 }
+
+.btn-primary:hover {
+    background-color: #0056b3; /* 더 진한 파란색 */
+    transform: scale(1.05); /* 살짝 커지는 효과 */
+}
+

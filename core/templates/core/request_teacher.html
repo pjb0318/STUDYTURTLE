@@ -5,29 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/request_teacher_role.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/request_teacher.css' %}">
+    
     <title>선생님 요청</title>
 </head>
 <body>
     <!-- 네비게이션 바 -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">StudyTurtle</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand font-weight-bold" href="{% url 'home' %}">STUDYTURTLE 학생</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
 
     <!-- 메인 콘텐츠 -->
-    <div class="container mt-5">
+    <div class="container">
         <div class="card shadow-lg">
             <div class="card-body">
                 <h1 class="card-title text-center mb-4">선생님 역할 요청</h1>
                 
                 {% if error %}
                     <div class="alert alert-danger text-center">{{ error }}</div>
+                     <!-- 대시보드로 돌아가는 버튼 -->
+                     <div class="text-center mt-4">
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">대시보드로 돌아가기</a>
+                    </div>
                 {% elif success %}
                     <div class="alert alert-success text-center">{{ success }}</div>
+                    <!-- 대시보드로 돌아가는 버튼 -->
+                    <div class="text-center mt-4">
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">대시보드로 돌아가기</a>
+                    </div>
                 {% else %}
-                    <p class="text-center">선생님 역할을 요청하시겠습니까?</p>
+                    <p class="text-center">{{ user.name }}님, 선생님 역할을 요청하시겠습니까?</p>
                     <form method="post" class="text-center">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary">요청하기</button>
@@ -36,5 +49,10 @@
             </div>
         </div>
     </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
+    </footer>
 </body>
 </html>
