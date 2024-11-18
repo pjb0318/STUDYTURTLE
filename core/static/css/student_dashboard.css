@@ -6,6 +6,7 @@ body {
 
 .navbar {
     margin-bottom: 2rem;
+    font-weight: bold;
 }
 
 .container h1 {
@@ -46,4 +47,14 @@ body {
     font-size: 0.9rem;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    margin-top: 2rem; /* 추가 여백 */
 }

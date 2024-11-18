@@ -1,37 +1,119 @@
 body {
-    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
+    background-color: #f8f9fa;
 }
 
 .container {
-    margin-top: 2rem;
+    margin-top: 7rem; /* 네비게이션 바와 충분한 간격 */
+    margin-bottom: 5rem;
+    max-width: 1200px; /* 컨테이너의 최대 너비 */
+    padding: 0 15px; /* 좌우 여백 추가 */
+    overflow-x: auto; /* 스크롤 가능 */
 }
 
 .navbar {
-    margin-bottom: 2rem;
+    margin-bottom: 0; /* 네비게이션 바 아래 간격 제거 */
+    font-weight: bold;
+    background-color: #343a40;
+    border-bottom: 2px solid #007bff;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.nav-link {
+    font-weight: bold;
+    color: #fff !important;
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #007bff !important;
 }
 
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
+    margin-bottom: 1.5rem;
 }
 
 h2 {
     font-size: 1.8rem;
     font-weight: bold;
     margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .list-group-item {
     font-size: 1rem;
 }
 
-.table th, .table td {
+.table {
+    width: 100%; /* 테이블이 컨테이너를 꽉 채우도록 설정 */
+    margin-bottom: 1rem; /* 아래 여백 추가 */
+    border-collapse: collapse; /* 테이블 셀 간 간격 제거 */
+}
+
+.table th,
+.table td {
     text-align: center;
     vertical-align: middle;
+    word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
+    padding: 0.75rem; /* 셀 여백 */
+}
+
+.table th {
+    font-weight: bold;
+    background-color: #f1f1f1;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto; /* 테이블 스크롤 허용 */
+    -webkit-overflow-scrolling: touch;
 }
 
 .btn {
     font-size: 0.9rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    margin-top: 2rem; /* 추가 여백 */
 }

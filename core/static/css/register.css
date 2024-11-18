@@ -4,8 +4,8 @@ body {
 }
 
 .navbar-brand {
-    font-size: 1.8rem;
-    padding-left: 15px; /* home.html과 동일한 위치 조정 */
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .form-container {

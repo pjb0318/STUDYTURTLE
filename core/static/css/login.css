@@ -4,12 +4,8 @@ body {
 }
 
 .navbar-brand {
-    font-size: 1.8rem;
-    padding-left: 15px; /* home.html과 동일한 위치 조정 */
-}
-
-.navbar-nav .nav-item {
-    margin-left: 15px;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .form-container {
@@ -23,6 +19,7 @@ body {
 
 .form-container:hover {
     transform: scale(1.02); /* 살짝 확대 효과 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강화 */
 }
 
 .form-title {
@@ -41,7 +38,7 @@ body {
     border-radius: 8px; /* 둥근 모서리 */
     font-size: 1rem;
 }
-
+    
 .btn-primary {
     border-radius: 25px; /* 버튼 둥글게 */
     font-size: 1.1rem;
@@ -49,8 +46,8 @@ body {
 }
 
 .container {
-    margin-top: 7rem; /* 세로 길이를 늘리기 위해 위쪽 여백 증가 */
-    margin-bottom: 5rem; /* 아래쪽 여백 추가 */
+    margin-top: 7rem;
+    margin-bottom: 5rem; 
 }
 
 footer {
