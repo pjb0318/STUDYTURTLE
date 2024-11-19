@@ -1,5 +1,4 @@
 .container {
-    margin-top: 7rem; /* 네비게이션 바와 충분한 간격 */
     margin-bottom: 5rem;
     max-width: 1200px; /* 컨테이너의 최대 너비 */
     padding: 0 15px; /* 좌우 여백 추가 */

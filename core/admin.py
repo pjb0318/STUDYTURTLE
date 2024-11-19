@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from .models import User, Task, TaskCompletion
-from django.shortcuts import render  
+from django.shortcuts import render
 
 
 class ResetPasswordForm(forms.Form):
@@ -16,6 +16,20 @@ class CustomUserAdmin(BaseUserAdmin):
     """
     사용자 관리를 위한 커스텀 관리자
     """
+    # 사용자 목록에서 표시할 필드
+    list_display = ('username', 'email', 'role', 'is_active', 'is_staff')
+    list_filter = ('role', 'is_active', 'is_staff')
+    search_fields = ('username', 'email')
+    ordering = ('username',)
+    
+    # role 필드를 추가하여 수정 가능하도록 설정
+    fieldsets = (
+        (None, {'fields': ('username', 'email', 'password')}),
+        ('Personal Info', {'fields': ('role',)}),  # role 필드 추가
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Important Dates', {'fields': ('last_login', 'date_joined')}),
+    )
+
     actions = ['reset_password']  # 사용자 정의 액션 추가
 
     @admin.action(description="사용자 비밀번호 초기화")

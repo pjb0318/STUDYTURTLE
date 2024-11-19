@@ -1,3 +1,5 @@
+/* 기존 코드 유지 */
+
 /* 상단 제목 스타일 */
 .container h1 {
     font-size: 2rem;
@@ -13,17 +15,19 @@
     margin-bottom: 1.5rem; /* 설명문과 카드 간 간격 조정 */
     text-align: left; /* 텍스트 정렬 왼쪽으로 */
 }
+
 /* 콘텐츠 전체 배치 수정 */
 .container {
     align-items: flex-start; /* 콘텐츠를 왼쪽 정렬 */
     justify-content: flex-start; /* 콘텐츠를 상단 정렬 */
     padding: 2rem; /* 내부 여백 추가 */
 }
+
 /* 카드 스타일 */
 .card {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem; /* 카드 간 간격 조정 */
+    margin-bottom: 20rem; /* 카드 간 간격 조정 */
 }
 
 /* 카드 헤더 스타일 */
@@ -53,8 +57,28 @@
     border-radius: 5px;
 }
 
-.std-page .content {
-    justify-content: flex-start; /* 수직 방향의 시작 부분으로 정렬 */
-    align-items: flex-start; /* 수평 방향의 시작 부분으로 정렬 */
-    margin-top: 2rem; 
+/* 추가된 새로운 기능 스타일 (새로운 이름 사용) */
+
+/* 섹션 배경 스타일 */
+.section-background {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    margin-bottom: 5rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+/* 새로운 버튼 스타일 */
+.btn-new {
+    font-size: 1rem;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-new:hover {
+    background-color: #0056b3;
 }

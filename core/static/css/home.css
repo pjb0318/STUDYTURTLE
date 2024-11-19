@@ -165,3 +165,21 @@
 .scroll-item.visible {
     opacity: 1;
 }
+
+/* 초기 각도를 기준으로 좌우로 흔들리는 효과 */
+@keyframes wobble {
+    0%, 100% {
+        transform: rotate(50deg); /* 초기 각도 */
+    }
+    25% {
+        transform: rotate(55deg); /* 오른쪽으로 5도 */
+    }
+    75% {
+        transform: rotate(45deg); /* 왼쪽으로 5도 */
+    }
+}
+
+/* 호버 시 애니메이션 적용 */
+#footprints .footprint:hover {
+    animation: wobble 0.5s infinite;
+}
