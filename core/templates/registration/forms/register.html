@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+
     <title>회원가입</title>
 </head>
 <body>
@@ -31,9 +32,9 @@
     </nav>
 
     <!-- 회원가입 폼 -->
-    <div class="container mt-5">
+    <div class="container mt-5  gothic-a1-regular">
         <div class="form-container">
-            <h3 class="form-title">회원가입</h3>
+            <h2 class="form-title text-center mb-4">회원가입</h2>
             
             <!-- 메시지 출력 -->
             {% if messages %}
@@ -91,9 +92,8 @@
         </div>
     </div>
 
-     <!-- 푸터 -->
-    <footer>
-        <p>&copy; 2024 StudyTurtle. All rights reserved.</p>
-    </footer>
+    <!-- 푸터 -->
+    {% include 'core/footer.html' %}
+    
 </body>
 </html>
