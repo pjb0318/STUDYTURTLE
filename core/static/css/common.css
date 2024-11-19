@@ -61,7 +61,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    padding: 0;
+    padding-bottom: 3rem; /* 푸터 높이만큼 패딩 추가 */
     background-color: #f8f9fa;
 }
 
@@ -82,9 +82,9 @@ body {
 
 footer {
     font-family: "Krona One", serif;
-    font-weight: 400;
+    font-weight: 300;
     font-style: normal;
-    font-size: 0.8rem;
+    font-size: 1rem;
 
     background-color: #343a40;
     color: white;
@@ -94,6 +94,31 @@ footer {
     bottom: 0;
     width: 100%;
     z-index: 1000; /* 다른 요소 위로 올리기 */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center;
+    padding: 0 1rem; /* 좌우 패딩 추가 */
+    position: relative; /* 텍스트 위치 조정을 위해 추가 */
+}
+
+.github-link {
+    position: absolute;
+    right: 1rem; /* 오른쪽에 배치 */
+    display: flex;
+    align-items: center;
+}
+
+.github-icon {
+    width: 48px; /* 아이콘 크기 두 배로 */
+    height: 48px;
+}
+
+.footer-text {
+    text-align: center;
+    font-size: 0.8rem; /* 텍스트 크기 */
 }
 
 
