@@ -45,6 +45,11 @@
     border-radius: 25px; /* 버튼 둥글게 */
     font-size: 1rem;
     font-weight: bold;
-    background-color: #007bff;
     height: 50px;
+    background-color: #6c757d ;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #495057; /* 호버 시 더 진한 에메랄드 그린 */
 }
