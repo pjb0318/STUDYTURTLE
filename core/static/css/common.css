@@ -4,7 +4,6 @@
 /*네비게이션 바*/
 .navbar {
     margin-bottom: 0; 
-    font-weight: bold;
     background-color: #333;
 }
 
@@ -103,14 +102,15 @@ footer {
 
 .github-link {
     position: absolute;
-    right: 2rem; /* 푸터의 오른쪽으로 배치 */
+    right: 2.4rem; /* 푸터의 오른쪽으로 배치 */
     display: flex;
     align-items: center;
 }
 
 .github-icon {
-    width: 40px; 
+    width: 50px; 
     height: auto;
+    fill: #fff; /* SVG 아이콘용 */
 }
 
 .footer-text {
