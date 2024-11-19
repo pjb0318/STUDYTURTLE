@@ -5,7 +5,7 @@
 .navbar {
     margin-bottom: 0; 
     font-weight: bold;
-    background-color: #343a40;
+    background-color: #333;
 }
 
 .navbar-brand {
@@ -32,7 +32,7 @@
 }
 
 .nav-link:hover {
-    color: #007bff !important;
+    color: #d1f2eb  !important;
 }
 
 
@@ -78,12 +78,12 @@ body {
 
 /* 푸터 스타일 */
 footer {
-    background-color: #1f2b21;
+    background-color: #333;
     font-family: "Krona One", serif; 
     font-weight: 300; 
     font-style: normal;
     font-size: 1rem; 
-    color: white; 
+    color: #fff; 
     display: flex;
     height: 80px; 
     justify-content: center; /* 텍스트는 가운데 정렬 */

@@ -1,6 +1,6 @@
 .home-page .content {
     text-align: center;
-    margin-top: 4rem; /* Home 페이지에서만 적용 */
+    margin-top: 0rem; /* Home 페이지에서만 적용 */
 }
 
 .content h1 {
@@ -27,7 +27,7 @@
 
 /* 원형 디자인 */
 .circle-card {
-    border: 3px solid #007bff;
+    border: 3px solid  #5a738e  ;
     border-radius: 50%;
     width: 300px;
     height: 300px;
@@ -39,6 +39,14 @@
     position: relative;
     margin-bottom: 1rem;
     overflow: hidden;
+
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), /* 부드러운 확대 */
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* 그림자 애니메이션도 동일 */
+}
+
+.circle-card:hover {
+    transform: scale(1.05); /* 약간 확대 효과 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 추가 */
 }
 
 .circle-card h3 {
