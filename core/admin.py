@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from .models import User, Task, TaskCompletion
 from django.shortcuts import render
-
+from core.models import Group
 
 class ResetPasswordForm(forms.Form):
     """
@@ -59,3 +59,10 @@ class CustomUserAdmin(BaseUserAdmin):
 admin.site.register(User, CustomUserAdmin)  # 사용자 모델
 admin.site.register(Task)  # 작업 모델
 admin.site.register(TaskCompletion)  # 작업 완료 모델
+
+
+
+@admin.register(Group)
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')  # Admin 목록에서 표시할 필드
+    search_fields = ('name',)  # 검색 가능 필드

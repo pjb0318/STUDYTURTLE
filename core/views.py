@@ -6,9 +6,9 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import get_user_model
 
 # 프로젝트 및 앱 내부 모듈
-from .models import Task
-from .forms import TaskForm, UserRegistrationForm
-from core.models import User, TeacherRequest
+from core.models import Task, User, TeacherRequest
+from core.forms import TaskForm, UserRegistrationForm, GroupForm, AddStudentToGroupForm  # 통합된 forms.py에서 가져오기
+
 
 
 User = get_user_model()
@@ -77,10 +77,10 @@ def dashboard(request):
         'students': students,
     })
 
-# 학생 대시보드
 @login_required
 def student_dashboard(request):
-    tasks = Task.objects.filter(assigned_to=request.user, is_complete=False)
+    # 학생이 속한 그룹의 미완료 작업 가져오기
+    tasks = Task.objects.filter(group__members=request.user, taskcompletion__status='incomplete')
     return render(request, 'core/student_dashboard.html', {'tasks': tasks})
 
 # 로그인 후 리디렉션
@@ -95,20 +95,20 @@ def after_login_view(request):
         return redirect('core:student_dashboard')  # 학생 대시보드로 이동
     return redirect('core:home')  # 기본 홈으로 리디렉션
 
-# 작업 생성 뷰
 @login_required
 @user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
 def create_task(request):
     if request.method == 'POST':
-        form = TaskForm(request.POST)
+        form = TaskForm(request.POST, initial={'assigned_by': request.user})
         if form.is_valid():
-            task = form.save(commit=False)
-            task.assigned_by = request.user
-            task.save()
-            return redirect('core:dashboard')
+            form.save()
+            return redirect('core:dashboard')  # 작업 생성 후 대시보드로 리디렉션
+        else:
+            print("폼 검증 실패:", form.errors)  # 디버깅 메시지
     else:
-        form = TaskForm()
+        form = TaskForm(initial={'assigned_by': request.user})
     return render(request, 'core/create_task.html', {'form': form})
+
 
 # 작업 완료 표시 뷰
 @login_required
@@ -171,3 +171,31 @@ def request_teacher_role(request):
         })
 
     return render(request, 'core/request_teacher.html')
+
+@login_required
+@user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
+def create_group(request):
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('core:dashboard')  # 그룹 생성 후 대시보드로 리디렉션
+    else:
+        form = GroupForm()
+    return render(request, 'core/create_group.html', {'form': form})
+
+@login_required
+@user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
+def add_student_to_group(request):
+    if request.method == 'POST':
+        form = AddStudentToGroupForm(request.POST)
+        if form.is_valid():
+            group = form.cleaned_data['group']
+            student = form.cleaned_data['student']
+            group.members.add(student)  # 그룹에 학생 추가
+            group.save()
+            return redirect('core:dashboard')  # 완료 후 대시보드로 리디렉션
+    else:
+        form = AddStudentToGroupForm()
+    return render(request, 'core/add_student_to_group.html', {'form': form})
+

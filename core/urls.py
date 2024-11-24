@@ -2,7 +2,8 @@ from django.urls import path
 from core import views
 from django.contrib.auth import views as auth_views  # Django 기본 인증 뷰 임포트
 from core.views import request_teacher_role
-
+from core.views import create_group
+from core.views import add_student_to_group
 app_name = 'core'
 
 urlpatterns = [
@@ -25,5 +26,10 @@ urlpatterns = [
 
     # 선생님 요청뷰
      path('request-teacher/', request_teacher_role, name='request_teacher'),
+
+    path('create-group/', create_group, name='create_group'),
+    path('add-student/', add_student_to_group, name='add_student_to_group'),
+
+    
     
 ]

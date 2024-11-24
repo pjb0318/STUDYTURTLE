@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <title>Add Student to Group - StudyTurtle</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">그룹에 학생 추가</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" class="bg-light p-4 rounded shadow-sm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_group">그룹</label>
+                        {{ form.group }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_student">학생</label>
+                        {{ form.student }}
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">학생 추가</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

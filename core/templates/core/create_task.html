@@ -30,53 +30,52 @@
     </div>
 </nav>
 
+<!-- 메인 콘텐츠 -->
+<div class="container mt-5 gothic-a1-regular">
+    <h1 class="text-center mb-4">새 과제 만들기</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- 작업 생성 폼 -->
+            <form method="post" class="bg-light p-4 rounded shadow-sm">
+                {% csrf_token %}
 
-    <!-- 메인 콘텐츠 -->
-    <div class="container mt-5 gothic-a1-regular">
-        <h1 class="text-center mb-4">새 과제 만들기</h1>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <!-- 작업 생성 폼 -->
-                <form method="post" class="bg-light p-4 rounded shadow-sm">
-                    {% csrf_token %}
+                <!-- 제목 입력 -->
+                <div class="form-group">
+                    <label for="id_title">제목</label>
+                    {{ form.title }}
+                </div>
 
-                    <!-- 제목 입력 -->
-                    <div class="form-group">
-                        <label for="id_title">제목</label>
-                        {{ form.title }}
-                    </div>
+                <!-- 설명 입력 -->
+                <div class="form-group">
+                    <label for="id_description">설명</label>
+                    {{ form.description }}
+                </div>
 
-                    <!-- 설명 입력 -->
-                    <div class="form-group">
-                        <label for="id_description">설명</label>
-                        {{ form.description }}
-                    </div>
+                <!-- 마감 날짜 입력 -->
+                <div class="form-group">
+                    <label for="id_due_date">마감일</label>
+                    {{ form.due_date }}
+                </div>
 
-                    <!-- 마감 날짜 입력 -->
-                    <div class="form-group">
-                        <label for="id_due_date">마감일</label>
-                        {{ form.due_date }}
-                    </div>
+                <!-- 그룹 선택 -->
+                <div class="form-group">
+                    <label for="id_group">그룹 선택</label>
+                    {{ form.group }}
+                </div>
 
-                    <!-- 담당자 선택 -->
-                    <div class="form-group">
-                        <label for="id_assigned_to">담당자</label>
-                        {{ form.assigned_to }}
-                    </div>
-
-                    <!-- 제출 버튼 -->
-                    <button type="submit" class="btn btn-primary btn-block mt-3">과제 생성하기</button>
-                </form>
-            </div>
+                <!-- 제출 버튼 -->
+                <button type="submit" class="btn btn-primary btn-block mt-3">과제 생성하기</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- 푸터 -->
-    {% include 'core/footer.html' %}
+<!-- 푸터 -->
+{% include 'core/footer.html' %}
 
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

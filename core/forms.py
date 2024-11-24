@@ -2,21 +2,12 @@ from django import forms
 from .models import Task
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from core.models import Group, User
+
+
 
 User = get_user_model()  # 사용자 정의 모델 가져오기
 
-
-# Task 모델 폼
-class TaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ['title', 'description', 'due_date', 'assigned_by']  # Task 모델의 필드
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-            'due_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'assigned_by': forms.Select(attrs={'class': 'form-control'}),
-        }
 
 
 # 사용자 등록 폼
@@ -68,3 +59,64 @@ class UserRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+
+# TaskForm 정의
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'description', 'due_date', 'group']  # assigned_by는 제외
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '과제 제목 입력'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': '과제 설명 입력'}),
+            'due_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'group': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+    def save(self, commit=True):
+        task = super().save(commit=False)
+        # 'assigned_by' 필드에 현재 사용자 설정
+        if 'assigned_by' in self.initial:
+            task.assigned_by = self.initial['assigned_by']
+        else:
+            raise ValueError("The 'assigned_by' field must be set in the form's initial data.")
+        if commit:
+            task.save()
+        return task
+
+
+# AddStudentToGroupForm 정의
+class AddStudentToGroupForm(forms.Form):
+    group = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="그룹"
+    )
+    student = forms.ModelChoiceField(
+        queryset=User.objects.filter(role='student'),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="학생"
+    )
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'description']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '그룹 이름'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': '그룹 설명'}),
+        }
+
+
+
+class AddStudentToGroupForm(forms.Form):
+    group = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="그룹"
+    )
+    student = forms.ModelChoiceField(
+        queryset=User.objects.filter(role='student'),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="학생"
+    )
