@@ -57,9 +57,9 @@ def admin_dashboard(request):
         elif action == 'reject':
             teacher_request.delete()  # 요청 삭제
 
-        return redirect('core:admin_dashboard')
+        return redirect('core:dash/admin_dashboard')
 
-    return render(request, 'core/admin_dashboard.html', {
+    return render(request, 'core/dash/admin_dashboard.html', {
         'students': students,
         'teachers': teachers,
         'pending_requests': pending_requests,
@@ -72,7 +72,7 @@ def admin_dashboard(request):
 def dashboard(request):
     tasks = Task.objects.filter(assigned_by=request.user)
     students = User.objects.filter(role='student')
-    return render(request, 'core/dashboard.html', {
+    return render(request, 'core/dash/dashboard.html', {
         'tasks': tasks,
         'students': students,
     })
@@ -81,18 +81,18 @@ def dashboard(request):
 def student_dashboard(request):
     # 학생이 속한 그룹의 미완료 작업 가져오기
     tasks = Task.objects.filter(group__members=request.user, taskcompletion__status='incomplete')
-    return render(request, 'core/student_dashboard.html', {'tasks': tasks})
+    return render(request, 'core/dash/student_dashboard.html', {'tasks': tasks})
 
 # 로그인 후 리디렉션
 @login_required
 def after_login_view(request):
     """로그인 후 사용자 역할에 따라 적합한 URL로 리디렉션"""
     if request.user.role == 'admin':
-        return redirect('core:admin_dashboard')  # 관리자 대시보드로 이동
+        return redirect('core:dash/admin_dashboard')  # 관리자 대시보드로 이동
     elif request.user.role == 'teacher':
-        return redirect('core:dashboard')  # 선생님 대시보드로 이동
+        return redirect('core:dash/dashboard')  # 선생님 대시보드로 이동
     elif request.user.role == 'student':
-        return redirect('core:student_dashboard')  # 학생 대시보드로 이동
+        return redirect('core:dash/student_dashboard')  # 학생 대시보드로 이동
     return redirect('core:home')  # 기본 홈으로 리디렉션
 
 @login_required
@@ -102,12 +102,12 @@ def create_task(request):
         form = TaskForm(request.POST, initial={'assigned_by': request.user})
         if form.is_valid():
             form.save()
-            return redirect('core:dashboard')  # 작업 생성 후 대시보드로 리디렉션
+            return redirect('core:dash/dashboard')  # 작업 생성 후 대시보드로 리디렉션
         else:
             print("폼 검증 실패:", form.errors)  # 디버깅 메시지
     else:
         form = TaskForm(initial={'assigned_by': request.user})
-    return render(request, 'core/create_task.html', {'form': form})
+    return render(request, 'core/tasks/create_task.html', {'form': form})
 
 
 # 작업 완료 표시 뷰
@@ -117,10 +117,10 @@ def mark_task_complete(request, task_id):
     task.is_complete = True
     task.save()
     if request.user.role == 'admin':
-        return redirect('core:admin_dashboard')
+        return redirect('core:dash/admin_dashboard')
     elif request.user.role == 'teacher':
-        return redirect('core:dashboard')
-    return redirect('core:student_dashboard')
+        return redirect('core:dash/dashboard')
+    return redirect('core:dash/student_dashboard')
 
 # 회원가입 뷰
 def register(request):
@@ -150,7 +150,7 @@ def home(request):
 @login_required
 def view_tasks(request):
     tasks = Task.objects.filter(assigned_to=request.user)
-    return render(request, 'core/view_tasks.html', {'tasks': tasks})
+    return render(request, 'core/tasks/view_tasks.html', {'tasks': tasks})
 
 @login_required
 def request_teacher_role(request):
@@ -159,18 +159,18 @@ def request_teacher_role(request):
         return redirect('/')  # 403 에러 반환
     # 이미 요청한 경우
     if TeacherRequest.objects.filter(user=request.user).exists():
-        return render(request, 'core/request_teacher.html', {
+        return render(request, 'core/dash/request_teacher.html', {
             'error': '이미 요청을 보냈습니다.'
         })
 
     # 요청 처리
     if request.method == 'POST':
         TeacherRequest.objects.create(user=request.user)
-        return render(request, 'core/request_teacher.html', {
+        return render(request, 'core/dash/request_teacher.html', {
             'success': '요청이 접수되었습니다. 관리자의 승인을 기다려주세요.'
         })
 
-    return render(request, 'core/request_teacher.html')
+    return render(request, 'core/dash/request_teacher.html')
 
 @login_required
 @user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
@@ -179,10 +179,10 @@ def create_group(request):
         form = GroupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('core:dashboard')  # 그룹 생성 후 대시보드로 리디렉션
+            return redirect('core:dash/dashboard')  # 그룹 생성 후 대시보드로 리디렉션
     else:
         form = GroupForm()
-    return render(request, 'core/create_group.html', {'form': form})
+    return render(request, 'core/group/create_group.html', {'form': form})
 
 @login_required
 @user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
@@ -194,8 +194,8 @@ def add_student_to_group(request):
             student = form.cleaned_data['student']
             group.members.add(student)  # 그룹에 학생 추가
             group.save()
-            return redirect('core:dashboard')  # 완료 후 대시보드로 리디렉션
+            return redirect('core:dash/dashboard')  # 완료 후 대시보드로 리디렉션
     else:
         form = AddStudentToGroupForm()
-    return render(request, 'core/add_student_to_group.html', {'form': form})
+    return render(request, 'core/group/add_student_to_group.html', {'form': form})
 
