@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import get_user_model
+from .models import TaskCompletion
 
 # 프로젝트 및 앱 내부 모듈
 from core.models import Task, User, TeacherRequest, Group
@@ -66,7 +67,7 @@ def admin_dashboard(request):
 @user_passes_test(is_teacher, login_url='/')
 def dashboard(request):
     # 현재 선생님이 할당한 과제
-    tasks = Task.objects.filter(assigned_by=request.user)
+    tasks = Task.objects.select_related('group').filter(assigned_by=request.user)
     
     # 모든 학생
     students = User.objects.filter(role='student')
@@ -93,8 +94,11 @@ def dashboard(request):
 
 @login_required
 def student_dashboard(request):
-    tasks = Task.objects.filter(group__members=request.user, taskcompletion__status='incomplete')
-    return render(request, 'core/dash/student_dashboard.html', {'tasks': tasks})
+    tasks = Task.objects.filter(group__members=request.user).exclude(taskcompletion__status='complete')
+    selected_task = None
+    if 'task_id' in request.GET:
+        selected_task = Task.objects.filter(id=request.GET['task_id']).first()
+    return render(request, 'core/dash/student_dashboard.html', {'tasks': tasks, 'selected_task': selected_task})
 
 
 # 로그인 후 리디렉션
@@ -129,13 +133,15 @@ def create_task(request):
 @login_required
 def mark_task_complete(request, task_id):
     task = get_object_or_404(Task, id=task_id)
-    task.is_complete = True
-    task.save()
+    completion, created = TaskCompletion.objects.get_or_create(task=task, student=request.user)
+    completion.status = 'complete'
+    completion.save()
     if request.user.role == 'admin':
         return redirect('core:admin_dashboard')
     elif request.user.role == 'teacher':
         return redirect('core:dashboard')
     return redirect('core:student_dashboard')
+
 
 
 # 회원가입
@@ -218,3 +224,42 @@ def add_student_to_group(request, group_id):
         group.save()
         return redirect('core:dashboard')  # 성공 시 대시보드로 리디렉션
     return redirect('core:dashboard')  # GET 요청 시에도 대시보드로 리디렉션
+
+@login_required
+@user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')  # 접근 권한 제한
+def remove_student_from_group(request, group_id, student_id):
+    """
+    그룹에서 학생을 제거하는 뷰.
+    """
+    # 그룹 확인: 현재 사용자(선생님/관리자)가 생성한 그룹인지 확인
+    group = get_object_or_404(Group, id=group_id, creator=request.user)
+    
+    # 학생 확인: 그룹 멤버인지 확인
+    student = get_object_or_404(User, id=student_id, role='student')
+
+    if request.method == 'POST':
+        # 그룹 멤버에서 학생 제거
+        group.members.remove(student)
+        group.save()
+
+        # 성공 메시지 추가 (선택 사항)
+        messages.success(request, f"{student.name} 학생이 그룹에서 제거되었습니다.")
+        return redirect('core:dashboard')  # 성공 후 대시보드로 리디렉션
+    
+    # POST 요청이 아니면 대시보드로 리디렉션
+    return redirect('core:dashboard')
+
+@login_required
+@user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
+def delete_task(request, task_id):
+    """
+    과제를 삭제하는 뷰.
+    """
+    task = get_object_or_404(Task, id=task_id, assigned_by=request.user)
+
+    if request.method == 'POST':
+        task.delete()
+        messages.success(request, '과제가 성공적으로 삭제되었습니다.')
+        return redirect('core:dashboard')
+
+    return redirect('core:dashboard')

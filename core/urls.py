@@ -29,4 +29,9 @@ urlpatterns = [
     # 그룹 관리
     path('create-group/', create_group, name='create_group'),
     path('add-student/<int:group_id>/', add_student_to_group, name='add_student_to_group'),  # group_id 추가
+    path('group/<int:group_id>/remove_student/<int:student_id>/', 
+         views.remove_student_from_group, 
+         name='remove_student_from_group'),
+
+    path('delete-task/<int:task_id>/', views.delete_task, name='delete_task'),
 ]
