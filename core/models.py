@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 
+from django.contrib.auth.models import User
 
 class User(AbstractUser):
     ROLE_CHOICES = (
@@ -26,14 +27,26 @@ class TeacherRequest(models.Model):
         return f"{self.user.username} 님의 선생님 요청"
 
 
+
+from django.conf import settings
+
 class Group(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True, null=True)  # 그룹 설명 (선택 사항)
-    members = models.ManyToManyField(User, related_name='group_memberships')  # 그룹 멤버
+    description = models.TextField(blank=True, null=True)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='groups_created',
+        default=1  # 숫자 ID로 변경
+    )
+    members = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='group_memberships',
+        blank=True
+    )
 
     def __str__(self):
         return self.name
-
 
 
 
@@ -41,12 +54,20 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     due_date = models.DateField()
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='tasks')  # 그룹과 연결
-    assigned_by = models.ForeignKey(User, on_delete=models.CASCADE)  # 과제를 생성한 사용자
+    group = models.ForeignKey(
+        Group, 
+        on_delete=models.CASCADE, 
+        related_name='tasks'
+    )  # 그룹과 연결
+    assigned_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE
+    )  # 과제를 생성한 사용자
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
 
 
 class TaskCompletion(models.Model):  # 이름을 기존대로 유지

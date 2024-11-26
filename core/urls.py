@@ -1,9 +1,8 @@
 from django.urls import path
 from core import views
 from django.contrib.auth import views as auth_views  # Django 기본 인증 뷰 임포트
-from core.views import request_teacher_role
-from core.views import create_group
-from core.views import add_student_to_group
+from core.views import request_teacher_role, create_group, add_student_to_group
+
 app_name = 'core'
 
 urlpatterns = [
@@ -25,11 +24,9 @@ urlpatterns = [
     path('after-login/', views.after_login_view, name='after_login'),  # 로그인 후 리디렉션
 
     # 선생님 요청뷰
-     path('request-teacher/', request_teacher_role, name='request_teacher'),
+    path('request-teacher/', request_teacher_role, name='request_teacher'),
 
+    # 그룹 관리
     path('create-group/', create_group, name='create_group'),
-    path('add-student/', add_student_to_group, name='add_student_to_group'),
-
-    
-    
+    path('add-student/<int:group_id>/', add_student_to_group, name='add_student_to_group'),  # group_id 추가
 ]
