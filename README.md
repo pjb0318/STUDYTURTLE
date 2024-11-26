@@ -132,7 +132,6 @@ StudyTurtle은 그룹 기반 학습 관리를 목적으로 설계된 웹 애플�
 ### **Contributors**
 - **Main Developer:** pjb0318
 
-For questions or suggestions, please contact: testemail@studyturtle.com
 
 ---
 
