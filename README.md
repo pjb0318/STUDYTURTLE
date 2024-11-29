@@ -60,47 +60,47 @@ StudyTurtle은 그룹 기반 학습 관리를 목적으로 설계된 웹 애플�
 - **Backend:** Python (Django Framework)
 - **Frontend:** HTML, CSS, JavaScript
 - **Database:** SQLite (개발 중), MySQL (배포 계획)
-- **API:** Naver Clova API (문의 내용 감정 분석)
+- **API:** Naver Clova API
 
 ---
 
-### **Installation**
+### **설치 방법**
 
-1. **Clone the repository**:
+1. **repository 복사하기**:
    ```bash
    git clone https://github.com/pjb0318/StudyTurtle.git
    cd StudyTurtle
    ```
 
-2. **Set up a virtual environment**:
+2. **가상 환경 설정하기**:
    ```bash
    python -m venv env
    source env/bin/activate   # (Linux/Mac)
    env\Scripts\activate      # (Windows)
    ```
 
-3. **Install dependencies**:
+3. **의존성 설치**:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Apply migrations**:
+4. **마이그레이션 반영**:
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-5. **Create a superuser**:
+5. **관리자 생성**:
    ```bash
    python manage.py createsuperuser
    ```
 
-6. **Run the server**:
+6. **서버 운영**:
    ```bash
    python manage.py runserver
    ```
 
-7. **Access the application**:
+7. **접속해보기**:
    Open a browser and navigate to `http://127.0.0.1:8000`.
 
 ---
@@ -125,13 +125,15 @@ StudyTurtle은 그룹 기반 학습 관리를 목적으로 설계된 웹 애플�
 ### **Development Goals**
 - 실제 동아리 학습 관리에 사용 가능하도록 기능 확장.
 - 향후 Java와 JavaScript를 활용하여 프로젝트 확장.
-- 프로토타입 완성 후 전역 후 배포 및 서비스화.
+- 프로토타입 완성 목표
+- 군대 다녀와서 리펙토링 해서 배포 및 서비스화.
 
 ---
 
 ### **Contributors**
 - **Main Developer:** pjb0318
 
+Email: junebe0rnb87@gmail.com
 
 ---
 
