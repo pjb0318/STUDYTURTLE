@@ -53,3 +53,10 @@
 .btn-primary:hover {
     background-color: #495057; /* 호버 시 더 진한 에메랄드 그린 */
 }
+
+.text-danger {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    display: block;
+}

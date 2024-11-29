@@ -157,13 +157,11 @@ def register(request):
             user.save()
             messages.success(request, f'{user.name}님, 회원가입이 완료되었습니다! 환영합니다!')
             return redirect('login')
-        else:
-            for error in form.errors.values():
-                messages.error(request, error)
     else:
         form = UserRegistrationForm()
-    return render(request, 'registration/forms/register.html', {'form': form})
 
+    # 실패 시 입력 데이터를 포함한 폼 다시 렌더링
+    return render(request, 'registration/forms/register.html', {'form': form})
 
 # 홈 뷰
 def home(request):
@@ -243,7 +241,6 @@ def remove_student_from_group(request, group_id, student_id):
         group.save()
 
         # 성공 메시지 추가 (선택 사항)
-        messages.success(request, f"{student.name} 학생이 그룹에서 제거되었습니다.")
         return redirect('core:dashboard')  # 성공 후 대시보드로 리디렉션
     
     # POST 요청이 아니면 대시보드로 리디렉션
@@ -259,7 +256,27 @@ def delete_task(request, task_id):
 
     if request.method == 'POST':
         task.delete()
-        messages.success(request, '과제가 성공적으로 삭제되었습니다.')
         return redirect('core:dashboard')
 
     return redirect('core:dashboard')
+
+@login_required
+@user_passes_test(lambda u: u.role in ['admin', 'teacher'], login_url='/')
+def update_task(request, task_id):
+    # 현재 사용자가 생성한 과제를 가져옴
+    task = get_object_or_404(Task, id=task_id, assigned_by=request.user)
+
+    if request.method == 'POST':
+        # 폼 생성 시 'assigned_by' 초기 데이터를 전달
+        form = TaskForm(request.POST, instance=task, initial={'assigned_by': request.user})
+        if form.is_valid():
+            form.save()  # 'assigned_by'는 폼 내부에서 설정됨
+            return redirect('core:dashboard')
+    else:
+        # GET 요청일 경우에도 'assigned_by' 초기 데이터를 전달
+        form = TaskForm(instance=task, initial={'assigned_by': request.user})
+
+    return render(request, 'core/tasks/update_task.html', {'form': form, 'task': task})
+
+
+

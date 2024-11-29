@@ -34,4 +34,7 @@ urlpatterns = [
          name='remove_student_from_group'),
 
     path('delete-task/<int:task_id>/', views.delete_task, name='delete_task'),
+
+    path('update-task/<int:task_id>/', views.update_task, name='update_task'),
+
 ]
